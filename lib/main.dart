@@ -11,8 +11,10 @@ async {
   // Employee employee1 = Employee(name: "Amr", designation: "Developer");
   // int a = 10;
   // String name = "Amrutha";
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter(); // Initialization
-  var box = await Hive.openBox(AppSessions.EmployeeBOX);
+  Hive.registerAdapter(EmployeeAdapter());
+  var box = await Hive.openBox<Employee>(AppSessions.EmployeeBOX);
 
   runApp(const MyApp());
 }

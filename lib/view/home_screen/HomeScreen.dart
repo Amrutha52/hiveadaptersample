@@ -19,14 +19,19 @@ class _HomeScreenState extends State<HomeScreen>
   TextEditingController nameController = TextEditingController();
   TextEditingController designationController = TextEditingController();
 
-  var employeeBox = Hive.box(AppSessions.EmployeeBOX);
+  var employeeBox = Hive.box<Employee>(AppSessions.EmployeeBOX);
+
+  List keys = [];
+
+
 
   @override
   void initState()
   {
     // App open aavumbol thanne valuesne pick cheythe konde varum
     //noteKeys = noteBox.keys.toList();
-    setState(() {});
+    keys = employeeBox.keys.toList();
+   // setState(() {});
     super.initState();
 
   }
@@ -43,10 +48,10 @@ class _HomeScreenState extends State<HomeScreen>
 
       ),
       body: ListView.builder(
-        itemCount: DummyDB.employeeList.length,
+        itemCount: keys.length,//DummyDB.employeeList.length,
           itemBuilder: (context, index) => ListTile(
-            title: Text("name : ${DummyDB.employeeList[index].name}"),
-            subtitle: Text("designation : ${DummyDB.employeeList[index].designation}"),
+            title: Text("name : ${employeeBox.get(keys[index])!.name}"),//Text("name : ${DummyDB.employeeList[index].name}"),
+            subtitle: Text("designation : ${employeeBox.get(keys[index])!.designation}"),//Text("designation : ${DummyDB.employeeList[index].designation}"),
           )),
     );
   }
@@ -93,7 +98,8 @@ class _HomeScreenState extends State<HomeScreen>
                         child: InkWell(
                           onTap: () {
 
-                            DummyDB.employeeList.add(Employee(name: nameController.text, designation: designationController.text));
+                            //DummyDB.employeeList.add(Employee(name: nameController.text, designation: designationController.text));
+                            employeeBox.add(Employee(name: nameController.text, designation: designationController.text));
                             setState(() {});
                             Navigator.pop(context); // Bottom sheet closing
                           },
