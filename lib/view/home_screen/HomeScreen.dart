@@ -100,6 +100,7 @@ class _HomeScreenState extends State<HomeScreen>
 
                             //DummyDB.employeeList.add(Employee(name: nameController.text, designation: designationController.text));
                             employeeBox.add(Employee(name: nameController.text, designation: designationController.text));
+                            keys = employeeBox.keys.toList();
                             setState(() {});
                             Navigator.pop(context); // Bottom sheet closing
                           },
